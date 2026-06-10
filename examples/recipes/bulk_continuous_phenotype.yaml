@@ -1,0 +1,41 @@
+# GenoBlocks recipe: bulk RNA-seq vs a continuous phenotype
+# -----------------------------------------------------------
+# A "recipe" is just a record of which blocks you snapped together,
+# in order, and the inputs you fed each one. Run the blocks top-to-bottom;
+# each block's documented output becomes the next block's input.
+#
+# This recipe reproduces the PROMOTER myeloid / pain analysis:
+# QC -> normalize + gene-cluster -> phenotype modeling -> robustness check.
+
+name: bulk_continuous_phenotype
+track: bulk
+description: >
+  Differential expression and gene-cluster discovery against a continuous
+  phenotype (e.g. pressure-pain threshold), then ML modeling of the phenotype
+  from cluster scores, then a cross-timepoint robustness check.
+
+inputs:
+  groupfile:   examples/PROMOTER_Pain_Metadata.csv   # one row per subject + phenotype columns
+  raw_counts:  PROMOTOR_BulkSeq_final_count.csv       # Symbol, Gene_Symbol, <samples...>
+  cpm_counts:  CPM_PROMOTOR_BulkSeq_final_count.txt   # CPM version, same layout
+
+steps:
+  - block: bulk/01_qc/BulkSeq_QC.R
+    why: confirm sample quality, spot outliers, sample-correlation + PCA
+    run: Rscript BulkSeq_QC.R <cpm_counts> <raw_counts> <groupfile> qc_out/
+
+  - block: bulk/02_normalize_cluster/PROMOTER_bulk_pipeline_20260527_WCGNA.R
+    why: VST normalize, variable-gene k-means clustering, DESeq2 ~ continuous phenotype, GSEA
+    produces:
+      - kmeans_k6_gene_clusters_LFC_P5P95_ZSCORE.csv
+      - kmeans_k6_cluster_mean_zscore_per_sample_LFC_P5P95_ZSCORE.csv
+
+  - block: bulk/04_modeling/regression_qst_v1.py
+    why: nested-CV regression predicting the phenotype from per-sample cluster z-scores
+    run: python regression_qst_v1.py
+    siblings:
+      - cluster_sweep_adj_sex.py        # which single cluster predicts phenotype after age/sex adjustment
+      - compare_target_transforms.py    # none vs log vs Yeo-Johnson target transforms
+
+  - block: bulk/03_robustness/PROMOTER_cluster_robustness_V1V2.R
+    why: do the V1 gene clusters reproduce at V2? (centroid projection + recluster + ARI + Sankey)

@@ -1,0 +1,7 @@
+sample_name,condition,batch,timepoint,sex
+SAMPLE_01,treated,run1,V1,Female
+SAMPLE_02,treated,run1,V1,Male
+SAMPLE_03,control,run1,V1,Female
+SAMPLE_04,control,run2,V1,Male
+SAMPLE_05,treated,run2,V2,Female
+SAMPLE_06,control,run2,V2,Male

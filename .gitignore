@@ -1,0 +1,24 @@
+# Outputs
+*_out/
+results/
+Figures/
+Tables/
+*.pptx
+
+# Large / binary data — keep these out of the repo
+*.rds
+*.RData
+*.Rhistory
+*.bam
+*.bam.bai
+*.bw
+*.npy
+
+# OS / editor cruft
+.DS_Store
+__pycache__/
+*.pyc
+.Rproj.user/
+.nextflow/
+.nextflow.log*
+work/
