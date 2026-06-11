@@ -1,6 +1,6 @@
 ###############################################################################
 # PROMOTER — V1 → paired-V2 GENE-CLUSTER ROBUSTNESS
-# Spin-off of PROMOTER_bulk_pipeline_20260527_WCGNA.R
+# Spin-off of bulk_normalize_cluster_DE.R
 #
 # Question: is the V1 gene clustering (k=6, LFC_P5P95 z-score pass) reproducible
 # at Visit 2? Restricted to subjects with a PAIRED V1 + V2 RNA-seq sample, so
@@ -24,7 +24,7 @@
 # Inputs (same working dir as parent, on the cluster):
 #   - kmeans_k6_gene_clusters_LFC_P5P95_ZSCORE.csv   V1 gene->cluster map
 #   - CPM_PROMOTOR_BulkSeq_20260216_final_count.txt  CPM (Gene_Symbol col first)
-#   - PROMOTER_Pain_Metadata.csv
+#   - example_pain_metadata.csv
 ###############################################################################
 .libPaths(c("/path/to/your/R_library", .libPaths()))
 
@@ -55,12 +55,12 @@ set.seed(42)
 # ─────────────────────────────────────────────────────────────────────────────
 CLUSTER_CSV <- "kmeans_k6_gene_clusters_LFC_P5P95_ZSCORE.csv"
 CPM_FILE    <- "CPM_PROMOTOR_BulkSeq_20260216_final_count.txt"
-PAIN_META   <- "PROMOTER_Pain_Metadata.csv"
+PAIN_META   <- "example_pain_metadata.csv"
 
 SUF      <- "LFC_P5P95"   # label tag carried through filenames (matches parent)
 KM_SEED  <- 40            # parent uses set.seed(40) right before kmeans()
 
-OUT_DIR  <- paste0("PROMOTER_cluster_robustness_V1V2_", format(Sys.Date(), "%Y%m%d"))
+OUT_DIR  <- paste0("gene_cluster_robustness_", format(Sys.Date(), "%Y%m%d"))
 DIR_SANKEY    <- file.path(OUT_DIR, "Sankey")
 DIR_SIL       <- file.path(OUT_DIR, "Silhouette")
 DIR_PCA       <- file.path(OUT_DIR, "GenePCA")

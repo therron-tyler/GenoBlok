@@ -18,7 +18,7 @@ suppressPackageStartupMessages({
 
 # ── CLI arguments ─────────────────────────────────────────────────────────────
 # Usage:
-#   Rscript NPSLE_ADT_UMAP_Survey_Pipeline.R \
+#   Rscript adt_umap_survey.R \
 #     --input_rds  /path/to/object.rds \
 #     --out_dir    /path/to/output \
 #     --resolution 0.3 \

@@ -89,7 +89,7 @@ def add_image_slide(title, caption, image_name):
 add_text_slide(
     "NPSLE T-cell PCA / SCTransform Investigation",
     [
-        "Pipeline: NPSLE_PCA_SCT_Investigation_Pipeline.R",
+        "Pipeline: pca_driver_investigation.R",
         "Plots: 20260526_NPSLE_PCA_SCT_Tcells_plots",
         "",
         "Purpose: identify which genes drive the principal components in the NPSLE T-cell "

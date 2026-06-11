@@ -11,7 +11,7 @@
 # Main outputs:
 #   - Figures/*.png
 #   - Tables/*.csv
-#   - IMPACT_auto_filled.pptx (optional)
+#   - figures_auto_filled.pptx (optional)
 #   - No analysis RDS is written by default
 #
 # Notes:
@@ -51,7 +51,7 @@ suppressPackageStartupMessages({
 cfg <- list(
   project_name = "IMPACT",
   input_rds    = "/path/to/data/WHLmerge_noIMP12_ManuscriptLabel_nCountRibo150_nCountRNA2000_dims1-9_11-12_res03.rds",
-  output_dir   = "IMPACT_Figure_Output",
+  output_dir   = "figure_output",
   covariate_csv = "IMPACT_Covariate_DEseq2_Table.csv",   # Age + Sex per sample
   template_pptx = "IMPACT figure template.pptx",   # optional
   make_pptx     = FALSE,
@@ -2842,7 +2842,7 @@ build_powerpoint <- function(cfg, fig_paths) {
     }
   }
 
-  out_ppt <- file.path(cfg$output_dir, "IMPACT_auto_filled.pptx")
+  out_ppt <- file.path(cfg$output_dir, "figures_auto_filled.pptx")
   print(doc, target = out_ppt)
   out_ppt
 }
@@ -3269,7 +3269,7 @@ if (sys.nframe() == 0) {
   } else {
     message2("IMPACT figure pipeline loaded.")
     message2("Usage:")
-    message2("  CLI:         Rscript IMPACT_one_shot_figure_pipeline.R <input.rds> [output_dir] [covariate.csv]")
+    message2("  CLI:         Rscript singlecell_figure_engine.R <input.rds> [output_dir] [covariate.csv]")
     message2("  Interactive: edit cfg$input_rds, then run res <- run_impact_pipeline(cfg)")
   }
 }

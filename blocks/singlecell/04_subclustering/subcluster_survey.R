@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
 ## NPSLE T-cell subcluster survey pipeline
-## Merges SingleCell_RDS_list_DimRezScanner_UMAP.R + NPSLE_ADT_UMAP_Survey_Pipeline.R
+## Merges dims_resolution_scan.R + adt_umap_survey.R
 ##
 ## Usage:
-##   Rscript NPSLE_Tcell_Subcluster_Survey.R \
-##     --rds     /path/to/NPSLE_Tcell_Subcluster.rds \
+##   Rscript subcluster_survey.R \
+##     --rds     /path/to/subcluster_final.rds \
 ##     --outdir  /path/to/output \
 ##     [--dims     10,15,20]        # max PCs per set; each set = dims 1:N
 ##     [--res      0.2,0.4,0.6]     # resolutions for per-combo QC pages

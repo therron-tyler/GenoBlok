@@ -15,33 +15,33 @@ inputs:
   # OR start mid-pipeline from an existing merged/subset RDS object.
 
 steps:
-  - block: singlecell/01_build_object/Processing_HashReps_into_MergedObj.R
+  - block: singlecell/01_build_object/merge_hashed_replicates.R
     why: merge hashed replicates, add mito/ribo metrics, demux to one merged object
     produces: Merged_<...>.rds
 
-  - block: singlecell/02_normalization_variants/IMPACT_normalization_variant_pipeline.R
+  - block: singlecell/02_normalization_variants/compare_normalization_variants.R
     why: run merged / SCTv2 / RPCA / Harmony on the same dims+res and compare
     run: Rscript ... --input_rds Merged.rds --pca_dims "1:9,11:12;1:12" --variant all
-    alt: 02_normalization_variants/NPSLE_Tcell_SCTransformV2_Pipeline.R  # SCTv2-only path
+    alt: 02_normalization_variants/sctransform_v2_pipeline.R  # SCTv2-only path
 
-  - block: singlecell/03_pca_investigation/NPSLE_PCA_SCT_Investigation_Pipeline.R
+  - block: singlecell/03_pca_investigation/pca_driver_investigation.R
     why: which genes drive each PC pre/post-SCT; sweep dims x resolution; per-sample PC violins
     run: Rscript ... --input_rds Subset.rds --n_pcs 30 --stages all
-    alt: 03_pca_investigation/IMP12_SCTv2_Investigation_Pipeline.R  # single-sample/batch deep-dive + pseudobulk
+    alt: 03_pca_investigation/single_sample_embedding_deepdive.R  # single-sample/batch deep-dive + pseudobulk
 
-  - block: singlecell/04_subclustering/NPSLE_Tcell_Subclustering_Pipeline.R
+  - block: singlecell/04_subclustering/subcluster_group_comparison.R
     why: subcluster a lineage, group comparison via propeller + MASC + pseudobulk DESeq2
     run: Rscript ... --input_rds Subset.rds --out_dir subcluster_out/
     siblings:
-      - NPSLE_Tcell_Subcluster_Survey.R          # dims x res survey QC PDFs
-      - SingleCell_RDS_list_DimRezScanner_UMAP.R  # dim/res scan across an RDS list
-      - NPSLE_ADT_UMAP_Survey_Pipeline.R          # ADT/RNA UMAP survey pages
+      - subcluster_survey.R          # dims x res survey QC PDFs
+      - dims_resolution_scan.R  # dim/res scan across an RDS list
+      - adt_umap_survey.R          # ADT/RNA UMAP survey pages
 
-  - block: singlecell/05_figures_report/IMPACT_one_shot_figure_pipeline_pval_v5-2.R
+  - block: singlecell/05_figures_report/singlecell_figure_engine.R
     why: one-shot figure engine — QC, UMAP, ADT, composition, volcano, DE heatmaps, GSEA, UpSet, pptx
-    produces: Figures/*.png, Tables/*.csv, IMPACT_auto_filled.pptx
+    produces: Figures/*.png, Tables/*.csv, figures_auto_filled.pptx
 
-  - block: report/decks/build_npsle_pca_sct_deck.py
+  - block: report/decks/build_pca_sct_deck.py
     why: assemble a PowerPoint from a figure folder with captions in pipeline order
     siblings:
       - make_deck.py   # generic deck builder from labeled figure subfolders

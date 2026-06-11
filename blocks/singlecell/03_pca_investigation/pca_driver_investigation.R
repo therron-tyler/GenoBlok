@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # =============================================================================
-# NPSLE_PCA_SCT_Investigation_Pipeline.R
+# pca_driver_investigation.R
 #
 # Investigate which genes drive the principal components BEFORE and AFTER
 # SCTransform v2, with every plot resolved by individual sample (HTO_maxID),
@@ -24,8 +24,8 @@
 #              compared side-by-side.
 #
 # Example QUEST sbatch call:
-#   Rscript NPSLE_PCA_SCT_Investigation_Pipeline.R \
-#     --input_rds  /path/to/.../20260213_GroupComps_NPSLEsamples/NPSLE_Tcell_Subcluster.rds \
+#   Rscript pca_driver_investigation.R \
+#     --input_rds  /path/to/.../20260213_GroupComps_NPSLEsamples/subcluster_final.rds \
 #     --out_dir    /path/to/.../NPSLE_PCA_SCT \
 #     --n_pcs      30 \
 #     --n_viz_pcs  10 \
@@ -784,7 +784,7 @@ stage_canon <- function(obj, cfg, plot_dir, target = "4") {
   adt_disp <- ADT_MARKERS[adt_present]   # display names, aligned to adt_present
 
   # FeaturePlot — one panel per antibody, CLR colour scale (margin=2, limits 0–3
-  # squished) as in NPSLE_Tcell_Subcluster_Survey.R, titled with display names.
+  # squished) as in subcluster_survey.R, titled with display names.
   # max 4 panels (2x2) per page, larger dots.
   fp_list <- FeaturePlot(obj, features = adt_present, reduction = reduc,
                          order = TRUE, pt.size = 1.0, raster = TRUE,

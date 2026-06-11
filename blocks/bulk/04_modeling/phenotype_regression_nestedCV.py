@@ -13,7 +13,7 @@ Design notes (n ~ 49, p = 6 -> small-n regime):
 
 Inputs:
   kmeans_k6_cluster_mean_zscore_per_sample_LFC_P5P95_ZSCORE.csv  (long: Cluster,SampleID,SampleLab,MeanZScore)
-  PROMOTER_Pain_Metadata.csv
+  example_pain_metadata.csv
 """
 
 import os
@@ -44,8 +44,8 @@ RNG = 42
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 INPUT_CSV = os.path.join(HERE, "kmeans_k6_cluster_mean_zscore_per_sample_LFC_P5P95_ZSCORE.csv")
-META_CSV  = os.path.join(HERE, "PROMOTER_Pain_Metadata.csv")
-OUTDIR    = os.path.join(HERE, "regression_qst_v1_out")
+META_CSV  = os.path.join(HERE, "example_pain_metadata.csv")
+OUTDIR    = os.path.join(HERE, "phenotype_regression_nestedCV_out")
 os.makedirs(OUTDIR, exist_ok=True)
 
 TARGET   = "qst_ppt_tr_avg_v1"

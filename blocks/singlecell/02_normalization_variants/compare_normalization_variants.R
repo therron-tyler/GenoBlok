@@ -1,10 +1,10 @@
 #!/usr/bin/env Rscript
 # =============================================================================
-# IMPACT_normalization_variant_pipeline.R
+# compare_normalization_variants.R
 #
 # Author: Tyler Therron
 # Purpose:
-#   Mirror IMPACT_one_shot_figure_pipeline_pval_v5-2.R but run the IMPACT cohort
+#   Mirror singlecell_figure_engine.R but run the IMPACT cohort
 #   through four normalization / integration variants on the same dims & res:
 #     - merged   : NormalizeData + FindVariableFeatures + ScaleData + PCA
 #     - sctv2    : SCTransform v2 + PCA
@@ -33,7 +33,7 @@
 # a feature plot on the UMAP, paged into groups of four.
 #
 # Example:
-#   Rscript IMPACT_normalization_variant_pipeline.R \
+#   Rscript compare_normalization_variants.R \
 #     --input_rds /path/to/WHL1-5_raw_merged.rds \
 #     --out_dir   /path/to/output \
 #     --exclude_variants sctv2,rpca,harmony \

@@ -62,7 +62,7 @@ parse_args <- function() {
 
   if (is.null(rds_path) || is.null(outdir)) {
     stop(
-      "Usage: Rscript SingleCell_RDS_list_DimRezScanner_UMAP.R \\\n",
+      "Usage: Rscript dims_resolution_scan.R \\\n",
       "  --rds <file.rds | rds_dir/> \\\n",
       "  --outdir <dir> \\\n",
       "  [--dims 7,8,11,12] \\\n",

@@ -1,10 +1,10 @@
-# 🧬 GenoBlocks
+# 🧬 GenoBlok
 
 **A modular toolkit for genomics analysis — snap together the blocks your project
 needs instead of forking someone else's monolithic pipeline.**
 
 Most genomics "pipelines" are one rigid script: great if your experiment looks
-exactly like the author's, painful otherwise. GenoBlocks takes the opposite stance.
+exactly like the author's, painful otherwise. GenoBlok takes the opposite stance.
 Each analysis stage — QC, normalization, clustering, differential expression,
 pathway enrichment, modeling, reporting — is a self-contained **block** with a
 documented input and output. Blocks in a track all speak the same
@@ -67,7 +67,7 @@ down the track snapping in only the blocks you want.
 | **Single-cell object** | Seurat `.rds` (RNA assay; ADT/HTO auto-detected) | single-cell track |
 
 Full spec and templates: **[docs/INPUT_SPECS.md](docs/INPUT_SPECS.md)** ·
-real example groupfile: [`examples/PROMOTER_Pain_Metadata.csv`](examples/PROMOTER_Pain_Metadata.csv).
+real example groupfile: [`examples/example_pain_metadata.csv`](examples/example_pain_metadata.csv).
 
 ## The blocks
 
@@ -113,15 +113,15 @@ point the inputs at your files. That's the whole workflow.
 ## Quick start
 
 ```bash
-git clone https://github.com/therron-tyler/GenoBlocks.git
-cd GenoBlocks
+git clone https://github.com/therron-tyler/GenoBlok.git
+cd GenoBlok
 
 # --- Bulk: QC your counts in one command ---
 Rscript blocks/bulk/01_qc/BulkSeq_QC.R \
     my_cpm.txt my_raw_counts.csv examples/groupfile_template.csv qc_out/
 
 # --- Single-cell: compare normalizations on a merged object ---
-Rscript blocks/singlecell/02_normalization_variants/IMPACT_normalization_variant_pipeline.R \
+Rscript blocks/singlecell/02_normalization_variants/compare_normalization_variants.R \
     --input_rds Merged.rds --out_dir norm_out/ --pca_dims "1:9,11:12;1:12" --variant all
 ```
 
@@ -141,13 +141,13 @@ each script's header block documents its exact arguments and an example `sbatch`
 ## Repository layout
 
 ```
-GenoBlocks/
+GenoBlok/
 ├── README.md                  ← you are here
 ├── docs/
 │   ├── INPUT_SPECS.md         ← the three input contracts + compatibility table
 │   └── MODULE_CATALOG.md      ← every block: inputs, outputs, CLI
 ├── examples/
-│   ├── PROMOTER_Pain_Metadata.csv   ← real example groupfile
+│   ├── example_pain_metadata.csv   ← real example groupfile
 │   ├── groupfile_template.csv
 │   ├── counts_template_bulk.csv
 │   └── recipes/               ← worked block-chain recipes (YAML)
@@ -171,13 +171,13 @@ GenoBlocks/
 
 ## Related repositories
 
-These started as GenoBlocks-style analyses but grew self-contained enough to live
+These started as GenoBlok-style analyses but grew self-contained enough to live
 on their own:
 
 - **MaxOrigami** — ATAC-seq → 3D genome (TAD/Hi-C) prediction (Nextflow)
 - **BS-seq Pipeline** — RRBS → differential methylation → methylation×expression (Nextflow)
 - **Myeloid Fate-Mapping Explorer** — interactive Shiny reporter browser
-- **WHL1 Cell Recovery** — SNP-consensus rescue of HTO-ambiguous cells
+- **scHTO-Recovery** — SNP-consensus rescue of HTO-ambiguous single cells
 
 ## License
 
@@ -185,5 +185,5 @@ MIT — see [LICENSE](LICENSE).
 
 ## Citation
 
-If GenoBlocks blocks contribute to your work, please cite this repository and the
+If GenoBlok blocks contribute to your work, please cite this repository and the
 underlying tools each block wraps (Seurat, DESeq2, fgsea, Harmony, propeller, etc.).

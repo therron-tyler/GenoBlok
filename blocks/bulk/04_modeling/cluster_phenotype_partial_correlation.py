@@ -18,10 +18,10 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import statsmodels.formula.api as smf
 
-from regression_qst_v1 import load_data
+from phenotype_regression_nestedCV import load_data
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUTDIR = os.path.join(HERE, "regression_qst_v1_C2_out")  # keep sweep with the focused-model outputs
+OUTDIR = os.path.join(HERE, "phenotype_regression_nestedCV_C2_out")  # keep sweep with the focused-model outputs
 os.makedirs(OUTDIR, exist_ok=True)
 
 TARGET = "qst_ppt_tr_avg_v1"
@@ -63,7 +63,7 @@ def main():
         })
 
     res = pd.DataFrame(rows)
-    res.to_csv(os.path.join(OUTDIR, "cluster_sweep_adj_sex.csv"), index=False)
+    res.to_csv(os.path.join(OUTDIR, "cluster_phenotype_partial_correlation.csv"), index=False)
 
     show = res[["cluster", "raw_r", "raw_p", "adj_coef", "adj_p", "partial_r"]].copy()
     print(f"n = (per model, after dropping missing age) ; tested {N_TESTS} clusters; "
@@ -90,10 +90,10 @@ def main():
     ax.set_title("Each cluster's effect on pain, adjusted for age + sex\n"
                  "(green = p<0.05; gray = not significant; line = 95% CI)")
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTDIR, "cluster_sweep_adj_sex.png"), dpi=160)
+    plt.savefig(os.path.join(OUTDIR, "cluster_phenotype_partial_correlation.png"), dpi=160)
     plt.close()
 
-    print(f"\nOutputs -> {OUTDIR}/cluster_sweep_adj_sex.csv , cluster_sweep_adj_sex.png")
+    print(f"\nOutputs -> {OUTDIR}/cluster_phenotype_partial_correlation.csv , cluster_phenotype_partial_correlation.png")
 
 
 if __name__ == "__main__":

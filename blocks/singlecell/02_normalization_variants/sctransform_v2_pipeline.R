@@ -2,7 +2,7 @@
 # =============================================================================
 #  NPSLE T Cell — SCTransform v2 Normalization Pipeline
 #
-#  Input : NPSLE_Tcell_Subcluster.rds  (T cells already subset + labelled)
+#  Input : subcluster_final.rds  (T cells already subset + labelled)
 #  Output: SCT_v2_Output/
 #
 #  Normalization: SCTransform v2 (vst.flavor = "v2", glmGamPoi backend)
@@ -58,7 +58,7 @@ opt <- parse_args(OptionParser(option_list = option_list))
 cfg <- list(
 
   input_rds = file.path(
-    "./NPSLE_Tcell_Subcluster.rds"),
+    "./subcluster_final.rds"),
 
   out_dir = file.path(
     "Tcell_SCTv2_Output"),
@@ -85,7 +85,7 @@ cfg <- list(
   pca_dims = 1:14,
   final_res = 0.8,
 
-  # DimRezScanner sweep (adapted from SingleCell_RDS_list_DimRezScanner_UMAP.R)
+  # DimRezScanner sweep (adapted from dims_resolution_scan.R)
   scan_dims = c(14, 16, 18, 20),
   scan_res  = c(0.4, 0.6, 0.8),
 
@@ -129,9 +129,9 @@ if (!is.null(opt$stages)) {
 }
 
 # Checkpoint paths — derived from out_dir so they survive across sessions
-cfg$ckpt_sct     <- file.path(cfg$out_dir, "NPSLE_Tcell_SCTv2_post_sct.rds")
-cfg$ckpt_pca     <- file.path(cfg$out_dir, "NPSLE_Tcell_SCTv2_post_pca.rds")
-cfg$ckpt_cluster <- file.path(cfg$out_dir, "NPSLE_Tcell_SCTv2_clustered.rds")
+cfg$ckpt_sct     <- file.path(cfg$out_dir, "sctransform_v2_post_sct.rds")
+cfg$ckpt_pca     <- file.path(cfg$out_dir, "sctransform_v2_post_pca.rds")
+cfg$ckpt_cluster <- file.path(cfg$out_dir, "sctransform_v2_clustered.rds")
 
 active_stages <- if ("all" %in% cfg$stages) {
   c("qc","sct","pca","scan","cluster","umap","markers","de")
@@ -170,7 +170,7 @@ TCELL_MARKERS <- list(
   GammaDelta     = c("TRDC", "TRGC1", "TRGC2")
 )
 
-# T cell ADT panel (from SingleCell_RDS_list_DimRezScanner_UMAP.R)
+# T cell ADT panel (from dims_resolution_scan.R)
 TCELL_ADT_MARKERS <- c(
   "Hu.CD3-UCHT1", "Hu.CD4-RPA.T4", "Hu.CD8",
   "Hu.CD2",       "Hu.CD5",         "Hu.CD7",
@@ -362,7 +362,7 @@ plot_sct_qc_umaps <- function(obj, plot_dir) {
               height = nrows_qc * 5.5)
 }
 
-# ── Paginated panel saver (from SingleCell_RDS_list_DimRezScanner_UMAP.R) ────
+# ── Paginated panel saver (from dims_resolution_scan.R) ────
 save_panel_pages <- function(panel_list, base_file, ncol,
                               panel_w, panel_h, dpi,
                               title = NULL, subtitle = NULL,

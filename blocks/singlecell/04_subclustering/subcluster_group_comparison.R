@@ -29,7 +29,7 @@ suppressPackageStartupMessages({
 
 # ── CLI arguments (override cfg defaults when running on HPC) ────────────────
 # Usage:
-#   Rscript NPSLE_Tcell_Subclustering_Pipeline.R \
+#   Rscript subcluster_group_comparison.R \
 #     --input_rds  /path/to/object.rds \
 #     --out_dir    /path/to/output \
 #     --final_res  0.4 \
@@ -461,7 +461,7 @@ run_tcell_pipeline <- function(cfg) {
   print(table(obj@meta.data[[cfg$group_col]]))
 
   # Save raw subset immediately — useful checkpoint before long processing
-  subset_rds <- file.path(cfg$out_dir, "NPSLE_Tcell_raw_subset.rds")
+  subset_rds <- file.path(cfg$out_dir, "subcluster_raw_subset.rds")
   saveRDS(obj, subset_rds)
   message("  Raw subset saved: ", subset_rds)
 
@@ -569,7 +569,7 @@ run_tcell_pipeline <- function(cfg) {
           length(unique(Idents(obj))), " clusters")
 
   # ── Save clustered object checkpoint ─────────────────────────────────────
-  clustered_rds <- file.path(cfg$out_dir, "NPSLE_Tcell_clustered.rds")
+  clustered_rds <- file.path(cfg$out_dir, "subcluster_clustered.rds")
   saveRDS(obj, clustered_rds)
   message("  Clustered object saved: ", clustered_rds)
 
@@ -791,7 +791,7 @@ run_tcell_pipeline <- function(cfg) {
   }
 
   # ── Save object ───────────────────────────────────────────────────────────
-  out_rds <- file.path(cfg$out_dir, "NPSLE_Tcell_Subcluster.rds")
+  out_rds <- file.path(cfg$out_dir, "subcluster_final.rds")
   saveRDS(obj, out_rds)
   message("\n  Object saved: ", out_rds)
   message("\nPipeline complete. Outputs in:\n  ", cfg$out_dir)

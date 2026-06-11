@@ -27,11 +27,11 @@ from sklearn.model_selection import (
 )
 from sklearn.metrics import mean_squared_error
 
-from regression_qst_v1 import load_data, model_zoo
+from phenotype_regression_nestedCV import load_data, model_zoo
 
 RNG = 42
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUTDIR = os.path.join(HERE, "regression_qst_v1_out")
+OUTDIR = os.path.join(HERE, "phenotype_regression_nestedCV_out")
 
 
 def wrap_target(est, transform):

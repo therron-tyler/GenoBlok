@@ -114,7 +114,7 @@ parse_args <- function() {
   if (is.null(a$outdir) || length(a$rds_paths) < 2) {
     stop(
       "Usage:\n",
-      "  Rscript Processing_HashReps_into_MergedObj.R \\\n",
+      "  Rscript merge_hashed_replicates.R \\\n",
       "    --rds <obj1.rds> --rds <obj2.rds> [--rds <obj3.rds> ...] \\\n",
       "    --outdir <dir> [--names name1,name2,...] [--hto_names HTO1,HTO2,...]\n\n",
       "Notes:\n",
@@ -151,7 +151,7 @@ order_idents_by_hto <- function(obj, hto_names) {
   obj
 }
 
-# ---- QC plotting helpers (style matches IMPACT_one_shot_figure_pipeline) ----
+# ---- QC plotting helpers (style matches singlecell_figure_engine) ----
 
 plot_qc_by_group <- function(obj, group_col, title = "QC") {
   qc_features <- intersect(

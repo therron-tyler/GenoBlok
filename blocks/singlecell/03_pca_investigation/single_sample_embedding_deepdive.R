@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # =============================================================================
-# IMP12_SCTv2_Investigation_Pipeline.R
+# single_sample_embedding_deepdive.R
 #
 # Mirrors IMP12_Investigation.pptx on the merged WHL1-5 PBMC object.
 # Output subfolder: <out_dir>/IMP12_SCTv2_Integration_Analysis/
@@ -19,7 +19,7 @@
 #   features    - FeaturePlot/VlnPlot CX3CR1, EGR1 + canonical marker panels + heatmap (Slide 23)
 #
 # Example QUEST sbatch call:
-#   Rscript IMP12_SCTv2_Investigation_Pipeline.R \
+#   Rscript single_sample_embedding_deepdive.R \
 #     --input_rds /path/to/data/20260506_WHL1_SNPrecovery/Merged_nCountRibo150_nCountRNA2000_UMAP30_clust1-9_11-12_res03.rds \
 #     --out_dir /path/to/data/20260506_WHL1_SNPrecovery \
 #     --pca_dims 20 \

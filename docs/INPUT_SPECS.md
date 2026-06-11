@@ -25,7 +25,7 @@ Rules:
 - Missing values are allowed (`NA` / blank); blocks that need a complete column
   drop incomplete rows and tell you which.
 
-A real, filled-in example is `examples/PROMOTER_Pain_Metadata.csv` (clinical pain
+A real, filled-in example is `examples/example_pain_metadata.csv` (clinical pain
 phenotypes per subject). A blank template is `examples/groupfile_template.csv`.
 
 ## 2. Counts file — bulk track
@@ -58,7 +58,7 @@ conventions:
   the comparison blocks.
 
 If your object doesn't yet have these, start at
-`singlecell/01_build_object/Processing_HashReps_into_MergedObj.R`, which builds a
+`singlecell/01_build_object/merge_hashed_replicates.R`, which builds a
 compliant merged object (mito/ribo metrics, demux, standardized metadata) from
 raw hashed per-pool objects.
 

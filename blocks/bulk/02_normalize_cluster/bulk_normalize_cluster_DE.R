@@ -5,7 +5,7 @@
 # Inputs:
 #   - PROMOTOR_BulkSeq_20260216_final_count.csv   raw integer counts
 #   - CPM_PROMOTOR_BulkSeq_20260216_final_count.txt  CPM (Symbol + Gene_Symbol first)
-#   - PROMOTER_Pain_Metadata.csv    study_id / qst_ppt_tr_avg_v1 / etc.
+#   - example_pain_metadata.csv    study_id / qst_ppt_tr_avg_v1 / etc.
 #   - groupfile_by_Day/RunOrder/Visit/Sample.csv  (no header, 4 cols)
 #
 # NOTE: PROMO24 V1 has 3 technical replicates (S3, S21, S93) — kept separate.
@@ -58,7 +58,7 @@ set.seed(42)
 # ─────────────────────────────────────────────────────────────────────────────
 RAW_COUNTS <- "PROMOTOR_BulkSeq_20260216_final_count.txt"
 CPM_FILE   <- "CPM_PROMOTOR_BulkSeq_20260216_final_count.txt"
-PAIN_META  <- "PROMOTER_Pain_Metadata.csv"
+PAIN_META  <- "example_pain_metadata.csv"
 GF_DAY     <- "groupfile_by_Day.csv"
 GF_RUN     <- "groupfile_by_RunOrder.csv"
 GF_VISIT   <- "groupfile_by_Visit.csv"
